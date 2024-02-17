@@ -23,6 +23,39 @@ const FAQS_FILE_PATH = path.resolve(
   process.env.FAQS_FILE_NAME as string,
 );
 
+const convertTextQuestions = (text: string): string[] => {
+  const regex = /\((.*?)\)/g;
+  const matches = text.matchAll(regex);
+  const optionList: string[][] = [];
+  for (const match of matches) {
+    const options = match[1].split("|");
+    optionList.push(options);
+  }
+  const combinations = generateCombinations(optionList);
+
+  return combinations.map(combination => {
+    let tmpText = text;
+    for (const opt of combination) {
+      tmpText = tmpText.replace(/\((.+?)\)/, opt);
+    }
+    return tmpText;
+  });
+};
+
+const generateCombinations = (optionList: string[][]): string[][] => {
+  let combinations: string[][] = [[]];
+  for (const opts of optionList) {
+    const tmp: string[][] = [];
+    for (const combination of combinations) {
+      for (const opt of opts) {
+        tmp.push(combination.concat(opt));
+      }
+    }
+    combinations = tmp;
+  }
+  return combinations;
+};
+
 /**
  * Generate FAQs data.
  */
@@ -72,6 +105,9 @@ const convertPageToFaqs = async (
     // remove prefix of question text.
     .map(line => line.text.replace(QUESTION_TEXT_PREFIX, ""))
     // convert to FAQ.
+    .flatMap(expandedTargetText => {
+      return convertTextQuestions(expandedTargetText);
+    })
     .map(question => {
       return {question, pageTitle};
     });
