@@ -5,6 +5,7 @@ import { Photo } from "../../../@types/Photo";
 
 const QuizPage = () => {
     const [quiz, setQuiz] = useState<string>("");
+    const [photoDescription, setPhotoDescription] = useState<string>('');
     const [photo, setPhoto] = useState<Photo>();
     const [answer, setAnswer] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -19,9 +20,9 @@ const QuizPage = () => {
             const photoResponse = await fetch(`/api/images/search?animalName=${animalName}`);
             const photos = await photoResponse.json();
             setPhoto(photos[Number(quizId)]);
-            const guizResonse = await fetch(`/api/quiz/generate`);
-            const quizData = guizResonse.json();
-            console.log(quizData);
+            console.log(photos[Number(quizId)]);
+            const photoDescriptionPromise = await fetch(`/api/quiz/generate`);
+            setPhotoDescription(await photoDescriptionPromise.json());
         })();
         setIsLoading(false);
     }, []);
@@ -34,13 +35,13 @@ const QuizPage = () => {
         <div>
             <h1>{quizId}問目</h1>
             <div>
-                <img src={photo?.url_c} alt="クイズの画像" />
-                <p>{quiz}</p>
+                <img src={photo?.url} alt="クイズの画像" />
+                <p>{photoDescription}</p>
             </div>
             <div>
                 <input type="text" name="" id="" placeholder="答えを入力してください" onChange={handleAnswerChange} />
             </div>
-            <Button>答え合わせ</Button>
+            <Button>答え合わせする</Button>
         </div>
     )
 };

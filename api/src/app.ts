@@ -59,10 +59,10 @@ app.get('/api/images/search', async (req, res) => {
       url: ph.url_c,
     }
   });
-  return photos;
+  return res.status(200).json(photos);
 });
 
-app.get('/api/quiz/generate', async () => {
+app.get('/api/quiz/generate', async (req, res) => {
   const response = await openai.chat.completions.create({
     model: "gpt-4-vision-preview",
     messages: [
@@ -81,5 +81,5 @@ app.get('/api/quiz/generate', async () => {
     ],
     max_tokens: 300
   });
-  console.log(response.choices[0]);
+  return res.status(200).json(response.choices[0].message.content);
 });
