@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {RouterProvider, createBrowserRouter} from "react-router-dom";
-import {TopPage} from "./pages/top.tsx";
-import {AnswerPage} from "./pages/answer.tsx";
-import {Layout} from "./components/layout.tsx";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { TopPage } from "./pages/top.tsx";
+import { AnswerPage } from "./pages/answer.tsx";
+import { Layout } from "./components/layout.tsx";
+import { NextUIProvider } from "@nextui-org/react";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
         element: <TopPage />,
       },
       {
+        path: "/pages/quiz/start",
+        element: <StartPage />
+      }
+      {
         path: "/pages/:pageTitle",
         element: <AnswerPage />,
       },
@@ -24,6 +29,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <NextUIProvider>
+      <RouterProvider router={router} />
+    </NextUIProvider>
   </React.StrictMode>,
 );
