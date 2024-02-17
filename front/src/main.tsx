@@ -7,6 +7,7 @@ import { Layout } from "./components/layout.tsx";
 import { NextUIProvider } from "@nextui-org/react";
 import "./index.css";
 import StartPage from "./pages/start.tsx";
+import QuizPage from "./pages/quiz.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/pages/quiz/start",
         element: <StartPage />
+      },
+      {
+        path: "/pages/quiz/:quizId",
+        element: <QuizPage />
       },
       {
         path: "/pages/:pageTitle",
