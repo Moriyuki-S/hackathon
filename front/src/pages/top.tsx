@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Button } from "@nextui-org/react";
 
 export function TopPage(): JSX.Element {
 
@@ -8,7 +9,7 @@ export function TopPage(): JSX.Element {
         <h1>Animal Quiz !</h1>
         <div>
           <Link to="/pages/quiz/start">
-            <button>Start!</button>
+            <Button>Start!</Button>
           </Link>
         </div>
       </div>
