@@ -13,7 +13,7 @@ const StartPage = () => {
         setAnimalNameInput(e.target.value);
     };
 
-    const handleSetThemeAnimal = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSetThemeAnimal = () => {
         setThemeAnimal(animalNameInput);
     };
 
@@ -23,7 +23,7 @@ const StartPage = () => {
                 <Input type="text" label="動物名を入力してください" onChange={handleInputChange} />
             </div>
             <div>
-                <Link to="/pages/quiz/1">
+                <Link to={`/pages/quiz/${animalNameInput}/1`}>
                     <Button onClick={handleSetThemeAnimal}>始める</Button>
                 </Link>
             </div>
