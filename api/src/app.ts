@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/healthcheck", async (req, res) => {
-  res.status(200).json({message: "ok"});
+  res.status(200).json({ message: "ok" });
 });
 
 app.get("/api/faqs", async (req, res) => {
@@ -34,7 +34,7 @@ app.get("/api/pages/:pageTitle", async (req, res) => {
     `https://scrapbox.io/api/pages/${process.env.SCRAPBOX_PROJECT_NAME}/${pageTitle}`,
   );
   if (!response.ok) {
-    res.status(404).json({message: "not found"});
+    res.status(404).json({ message: "not found" });
     return;
   }
   const page = await response.json();
@@ -69,6 +69,7 @@ app.get('/api/images/search', async (req, res) => {
 });
 
 app.get('/api/quiz/generate', async (req, res) => {
+  /*
   const response = await openai.chat.completions.create({
     model: "gpt-4-vision-preview",
     messages: [
@@ -88,4 +89,6 @@ app.get('/api/quiz/generate', async (req, res) => {
     max_tokens: 300
   });
   return res.status(200).json(response.choices[0].message.content);
+  */
+  return res.status(200).json('ChatGptのテスト');
 });

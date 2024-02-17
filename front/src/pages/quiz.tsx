@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { redirect, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, Input, CircularProgress } from "@nextui-org/react";
 import { Photo } from "../../../@types/Photo";
 import { useCorrectCounter } from "../hooks/useCorrectCounter";
 import { useLifeCounter } from "../hooks/useLifeCounter";
+import { useSetRecoilState } from "recoil";
+import { QuizResultState } from "../states/quizResult";
 
 const QuizPage = () => {
     const [quiz, setQuiz] = useState<string>("");
@@ -13,8 +15,13 @@ const QuizPage = () => {
     const [isQuizLoading, setIsQuizLoading] = useState<boolean>(true);
     const [isJudgeLoading, setIsJudgeLoading] = useState<boolean>(false);
     const { quizId, animalName } = useParams();
+    if (quizId === undefined || animalName === undefined) {
+        throw new Error("quizId or animalName is undefined");
+    }
+    const setQuizResultState = useSetRecoilState(QuizResultState(quizId));
     const correctCounterMethods = useCorrectCounter();
     const lifeCountMethods = useLifeCounter();
+    const navigate = useNavigate();
 
     const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAnswer(e.target.value);
@@ -35,19 +42,18 @@ const QuizPage = () => {
         setIsJudgeLoading(true);
         //const res = await fetch('/');
         //const isCorrect = await res.json() as boolean;
-        setTimeout(() => {
-            setIsJudgeLoading(false);
-        }, 2000);
-        /*
+        const isCorrect = true;
+        
         if (isCorrect) {
             correctCounterMethods.increment();
+            setQuizResultState( { quizid: quizId, isCorrect: true });
+
         } else {
             lifeCountMethods.decrement();
         }
-        */
 
-        redirect(`/pages/quiz/${animalName}/${Number(quizId)}/result`);
-    }
+        navigate(`/pages/quiz/${animalName}/${Number(quizId)}/result`, { replace: true});
+    };
 
     if (isQuizLoading) {
         return (
@@ -66,13 +72,13 @@ const QuizPage = () => {
             <h1 className="w-fit mx-auto text-[36px] border-b border-black">{quizId}問目</h1>
             <div className="pt-8">
                 <img src={photo?.url} alt="クイズの画像" className="aspect-auto" />
-                <p className="w-fit mx-auto mt-8 text-xl">この動物は何でしょう？</p>
+                <p className="w-fit mx-auto mt-8 text-xl">この{animalName}の名前や特徴は何でしょう？</p>
             </div>
             <div className="pt-8">
                 <Input type="text" label="答えを入力してください" onChange={handleAnswerChange} />
             </div>
             <div className="w-fit mx-auto mt-8">
-                <Button onClick={judgeAnswer}>答え合わせする</Button>
+                <Button onClick={() => judgeAnswer()}>答え合わせする</Button>
             </div>
         </div>
     )
