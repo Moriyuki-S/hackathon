@@ -2,8 +2,11 @@ import fs from "fs/promises";
 import path from "path";
 import cors from "cors";
 import express from "express";
+import OpenAI from "openai";
+import { createFlickr } from "flickr-sdk";
 
 export const app = express();
+const openai = new OpenAI();
 
 app.use(cors());
 app.use(express.json());
@@ -36,4 +39,49 @@ app.get("/api/pages/:pageTitle", async (req, res) => {
   const page = await response.json();
 
   res.status(200).json(page);
+});
+
+type Photo = {
+  id: string;
+  title: string;
+  url_c: string;
+};
+
+app.get('/api/images/search', async (req, res) => {
+  const { flickr } = createFlickr(process.env.FLICKR_API_KEY as string);
+  const response = await flickr("flickr.photos.search", {
+    text: "cat",
+    extras: "url_c"
+  });
+  const photos = response.photos.photo.map((ph: Photo) => {
+    return {
+      id: ph.id,
+      title: ph.title,
+      url: ph.url_c,
+    }
+  });
+  console.log(photos);
+  return photos;
+});
+
+app.get('/api/generate-answer', async () => {
+  const response = await openai.chat.completions.create({
+    model: "gpt-4-vision-preview",
+    messages: [
+      {
+        role: "user",
+        content: [
+          { type: "text", text: "この画像はなんですか?" },
+          {
+            type: "image_url",
+            image_url: {
+              "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+            },
+          },
+        ],
+      },
+    ],
+    max_tokens: 300
+  });
+  console.log(response.choices[0]);
 });
