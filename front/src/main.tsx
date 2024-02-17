@@ -8,6 +8,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import "./index.css";
 import StartPage from "./pages/start.tsx";
 import QuizPage from "./pages/quiz.tsx";
+import { RecoilRoot } from "recoil";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <NextUIProvider>
-      <RouterProvider router={router} />
+      <RecoilRoot>
+        <RouterProvider router={router} />
+      </RecoilRoot>
     </NextUIProvider>
   </React.StrictMode>,
 );
