@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         element: <StartPage />
       },
       {
-        path: "/pages/quiz/:quizId",
+        path: "/pages/quiz/:animalName/:quizId",
         element: <QuizPage />
       },
       {
