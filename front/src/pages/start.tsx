@@ -17,7 +17,7 @@ const StartPage = () => {
                 <Input type="text" label="動物名を入力してください" onChange={handleInputChange} />
             </div>
             <div>
-                <Link to="/quiz/1">
+                <Link to="/pages/quiz/1">
                     <Button>始める</Button>
                 </Link>
             </div>
