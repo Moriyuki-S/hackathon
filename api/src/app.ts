@@ -43,9 +43,13 @@ app.get("/api/pages/:pageTitle", async (req, res) => {
 });
 
 app.get('/api/images/search', async (req, res) => {
+  const animalName = req.query.animalName as string;
+  if (animalName === "") {
+    return [];
+  }
   const { flickr } = createFlickr(process.env.FLICKR_API_KEY as string);
   const response = await flickr("flickr.photos.search", {
-    text: "cat",
+    text: animalName,
     extras: "url_c"
   });
   const photos = response.photos.photo.map((ph: Photo) => {
