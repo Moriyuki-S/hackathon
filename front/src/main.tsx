@@ -10,6 +10,7 @@ import StartPage from "./pages/start.tsx";
 import QuizPage from "./pages/quiz.tsx";
 import { RecoilRoot } from "recoil";
 import QuizResult from "./pages/quizResult.tsx";
+import QuizFinalResult from "./pages/quizFinalResult.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/pages/quiz/:animalName/:quizId/result",
         element: <QuizResult />
+      },
+      {
+        path: "/pages/quiz/:animalName/result",
+        element: <QuizFinalResult />
       },
       {
         path: "/pages/:pageTitle",

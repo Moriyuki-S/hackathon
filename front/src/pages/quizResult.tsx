@@ -21,7 +21,7 @@ const QuizResult = () => {
     const { isCorrect } = useRecoilValue(QuizResultState(quizId));
 
     const redirectToFinalResultPage = () => {
-        navigate(`/pages/quiz/result`, { replace: true});
+        navigate(`/pages/quiz/${animalName}/result`, { replace: true});
     };
 
 
