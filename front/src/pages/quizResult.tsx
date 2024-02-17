@@ -4,7 +4,6 @@ import { QuizResultState } from "../states/quizResult";
 import { Button } from "@nextui-org/button";
 import { Link } from "react-router-dom";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
-import { CorrectCounter } from "../models/CorrectCounter";
 import { useCorrectCounter } from "../hooks/useCorrectCounter";
 import { useLifeCounter } from "../hooks/useLifeCounter";
 

@@ -5,11 +5,11 @@ export function TopPage(): JSX.Element {
 
   return (
     <>
-      <div>
-        <h1>Animal Quiz !</h1>
-        <div>
+      <div className=" h-full flex flex-col items-center justify-center gap-y-14">
+        <h1 className="text-6xl">Animal Quiz !</h1>
+        <div className="">
           <Link to="/pages/quiz/start">
-            <Button>Start!</Button>
+            <Button size="lg">Start!</Button>
           </Link>
         </div>
       </div>
