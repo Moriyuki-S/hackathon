@@ -4,6 +4,7 @@ import cors from "cors";
 import express from "express";
 import OpenAI from "openai";
 import { createFlickr } from "flickr-sdk";
+import type { Photo } from "../../@types/Photo";
 
 export const app = express();
 const openai = new OpenAI();
@@ -40,12 +41,6 @@ app.get("/api/pages/:pageTitle", async (req, res) => {
 
   res.status(200).json(page);
 });
-
-type Photo = {
-  id: string;
-  title: string;
-  url_c: string;
-};
 
 app.get('/api/images/search', async (req, res) => {
   const { flickr } = createFlickr(process.env.FLICKR_API_KEY as string);
