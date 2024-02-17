@@ -42,6 +42,12 @@ app.get("/api/pages/:pageTitle", async (req, res) => {
   res.status(200).json(page);
 });
 
+type PhotoAtFetch = {
+  id: string;
+  title: string;
+  url_c: string;
+};
+
 app.get('/api/images/search', async (req, res) => {
   const animalName = req.query.animalName as string;
   if (animalName === "") {
@@ -52,7 +58,7 @@ app.get('/api/images/search', async (req, res) => {
     text: animalName,
     extras: "url_c"
   });
-  const photos = response.photos.photo.map((ph: Photo) => {
+  const photos = response.photos.photo.map((ph: PhotoAtFetch) => {
     return {
       id: ph.id,
       title: ph.title,
@@ -69,7 +75,7 @@ app.get('/api/quiz/generate', async (req, res) => {
       {
         role: "user",
         content: [
-          { type: "text", text: "この画像はなんですか?" },
+          { type: "text", text: "この動物はなんですか?" },
           {
             type: "image_url",
             image_url: {
