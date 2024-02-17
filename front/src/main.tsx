@@ -9,6 +9,7 @@ import "./index.css";
 import StartPage from "./pages/start.tsx";
 import QuizPage from "./pages/quiz.tsx";
 import { RecoilRoot } from "recoil";
+import QuizResult from "./pages/quizResult.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/pages/quiz/:animalName/:quizId",
         element: <QuizPage />
+      },
+      {
+        path: "/pages/quiz/:animalName/:quizId/result",
+        element: <QuizResult />
       },
       {
         path: "/pages/:pageTitle",
