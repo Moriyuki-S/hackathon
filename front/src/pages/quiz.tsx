@@ -19,8 +19,8 @@ const QuizPage = () => {
         throw new Error("quizId or animalName is undefined");
     }
     const setQuizResultState = useSetRecoilState(QuizResultState(quizId));
-    const correctCounterMethods = useCorrectCounter();
-    const lifeCountMethods = useLifeCounter();
+    const correctCounter = useCorrectCounter();
+    const lifeCounter = useLifeCounter();
     const navigate = useNavigate();
 
     const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,16 +43,17 @@ const QuizPage = () => {
         //const res = await fetch('/');
         //const isCorrect = await res.json() as boolean;
         const isCorrect = true;
-        
-        if (isCorrect) {
-            correctCounterMethods.increment();
-            setQuizResultState( { quizid: quizId, isCorrect: true });
+        setTimeout(() => {
+            if (isCorrect) {
+                correctCounter.increment();
+                setQuizResultState({ quizid: quizId, isCorrect: true });
 
-        } else {
-            lifeCountMethods.decrement();
-        }
+            } else {
+                lifeCounter.decrement();
+            }
 
-        navigate(`/pages/quiz/${animalName}/${Number(quizId)}/result`, { replace: true});
+            navigate(`/pages/quiz/${animalName}/${Number(quizId)}/result`, { replace: true });
+        }, 3000);
     };
 
     if (isQuizLoading) {

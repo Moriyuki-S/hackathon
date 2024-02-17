@@ -7,10 +7,6 @@ const MIN_LIFE_POINT = 0;
 export const useLifeCounter = () => {
     const [life, setLife] = useState(MAX_LIFE_POINT);
 
-    const getCurrenntLife = () => {
-        return life;
-    };
-
     const decrement = () => {
         setLife(life - 1);
         if (life < MIN_LIFE_POINT) {
@@ -23,7 +19,7 @@ export const useLifeCounter = () => {
     }
 
     return {
-        getCurrenntLife,
+        life,
         decrement,
         resetLife
     };
