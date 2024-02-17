@@ -59,7 +59,7 @@ app.get('/api/images/search', async (req, res) => {
   return photos;
 });
 
-app.get('/api/generate-answer', async () => {
+app.get('/api/quiz/generate', async () => {
   const response = await openai.chat.completions.create({
     model: "gpt-4-vision-preview",
     messages: [
