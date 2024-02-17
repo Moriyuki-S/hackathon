@@ -59,7 +59,6 @@ app.get('/api/images/search', async (req, res) => {
       url: ph.url_c,
     }
   });
-  console.log(photos);
   return photos;
 });
 
