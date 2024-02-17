@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const themeAnimal = atom<string>({
+export const ThemeAnimal = atom<string>({
     key: "themeAnimal",
     default: "",
 });

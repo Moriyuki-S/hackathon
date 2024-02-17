@@ -1,15 +1,21 @@
 import { Input, Button } from "@nextui-org/react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { ThemeAnimal } from "../states/themeAnimal";
 
 const StartPage = () => {
 
-    const [animalName, setAnimalName] = useState<string>('');
+    const [animalNameInput, setAnimalNameInput] = useState<string>('');
+    const setThemeAnimal = useSetRecoilState(ThemeAnimal);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAnimalName(e.target.value);
+        setAnimalNameInput(e.target.value);
     };
 
+    const handleSetThemeAnimal = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setThemeAnimal(animalNameInput);
+    };
 
     return (
         <div>
@@ -18,7 +24,7 @@ const StartPage = () => {
             </div>
             <div>
                 <Link to="/pages/quiz/1">
-                    <Button>始める</Button>
+                    <Button onClick={handleSetThemeAnimal}>始める</Button>
                 </Link>
             </div>
         </div>
