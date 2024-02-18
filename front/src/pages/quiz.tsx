@@ -38,7 +38,18 @@ const QuizPage = () => {
         })();
     }, []);
 
+    const isAnswerEmpty = (): boolean => {
+        if (answer === "") {
+            return true;
+        }
+        return false;
+    };
+
     const judgeAnswer = async () => {
+        if (isAnswerEmpty()) {
+            alert('答えを入力してください');
+            return;
+        }
         setIsJudgeLoading(true);
         //const res = await fetch('/');
         //const isCorrect = await res.json() as boolean;
@@ -65,18 +76,18 @@ const QuizPage = () => {
     }
 
     return (
-        <div className="relative">
+        <div className="relative md:pb-10">
             <div className={`${isJudgeLoading ? "flex" : "hidden"}`}>
                 <div className="w-screen h-screen opacity-35 z-30 bg-slate-50 absolute"></div>
                 <CircularProgress label={"答え合わせ中"} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40" />
             </div>
             <h1 className="w-fit mx-auto text-[36px] border-b border-black">{quizId}問目</h1>
             <div className="pt-8">
-                <img src={photo?.url} alt="クイズの画像" className="aspect-auto" />
+                <img src={photo?.url} alt="クイズの画像" className="md:w-2/3 md:mx-auto aspect-auto" />
                 <p className="w-fit mx-auto mt-8 text-xl">この{animalName}の名前や特徴は何でしょう？</p>
             </div>
             <div className="pt-8">
-                <Input type="text" label="答えを入力してください" onChange={handleAnswerChange} />
+                <Input type="text" label="答えを入力してください" onChange={handleAnswerChange} className="md:w-2/3 md:mx-auto" />
             </div>
             <div className="w-fit mx-auto mt-8">
                 <Button onClick={() => judgeAnswer()}>答え合わせする</Button>
