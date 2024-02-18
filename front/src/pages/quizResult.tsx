@@ -32,7 +32,7 @@ const QuizResult = () => {
                     <div>
                         {isCorrect ? '🎉' : '😢'}
                     </div>
-                    <p className="text-5xl">{isCorrect ? '大正解！' : '残念'}</p>
+                    <p className="text-5xl">{isCorrect ? '正解！' : '残念'}</p>
                 </div>
                 <div className="flex gap-x-8">
                     <Button onPress={onOpen}>ここで終わる</Button>
