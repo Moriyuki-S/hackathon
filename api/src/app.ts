@@ -48,6 +48,34 @@ type PhotoAtFetch = {
   url_c: string;
 };
 
+
+import tf from '@tensorflow/tfjs-node'
+import mobilenet from '@tensorflow-models/mobilenet'
+
+
+
+// async function classifyImage(imagePath) {
+//   const image = fs.readFileSync(imagePath);
+//   const decodedImage = tf.node.decodeImage(image, 3);
+//   const model = await mobilenet.load();
+//   const predictions = await model.classify(decodedImage);
+//   console.log('Predictions:', predictions);
+//   decodedImage.dispose(); // Clean up memory
+//   return predictions;
+// }
+
+// const imagePath = process.argv[2]; // Take image path from command line argument
+// classifyImage(imagePath)
+//   .then(predictions => {
+//     const animalPredictions = predictions.filter(prediction => prediction.className.includes('animal'));
+//     if (animalPredictions.length > 0) {
+//       console.log("This image likely contains an animal.");
+//     } else {
+//       console.log("No animals detected in this image.");
+//     }
+//   })
+//   .catch(err => console.error(err));
+
 app.get('/api/images/search', async (req, res) => {
   const animalName = req.query.animalName as string;
   if (animalName === "") {
